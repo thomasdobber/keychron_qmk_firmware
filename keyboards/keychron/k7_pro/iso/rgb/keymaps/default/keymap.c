@@ -25,6 +25,24 @@ enum layers{
   FN2,
 };
 
+#define LT_SPC LT(MAC_FN1, KC_SPC)
+
+/**
+ * Combos
+ */
+const uint16_t PROGMEM c_df[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM c_sdf[] = {KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM c_jk[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM c_jkl[] = {KC_J, KC_K, KC_L, COMBO_END};
+
+combo_t key_combos[] = {
+    [A] = COMBO(c_sdf, KC_ESC),
+    [B] = COMBO(c_df, KC_TAB),
+    [C] = COMBO(c_jk, KC_BSPC),
+    [D] = COMBO(c_jkl, KC_ENT),
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_69_iso(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_DEL,

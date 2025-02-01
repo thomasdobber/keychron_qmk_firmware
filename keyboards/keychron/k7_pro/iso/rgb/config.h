@@ -16,6 +16,12 @@
 
 #pragma once
 
+#define QUICK_TAP_TERM 0
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// #define COMBO_TERM 80
+
 #ifdef RGB_MATRIX_ENABLE
 /* RGB Matrix Driver Configuration */
 #    define DRIVER_COUNT 2
