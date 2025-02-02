@@ -25,7 +25,22 @@ enum layers{
   FN2,
 };
 
-#define LT_SPC LT(MAC_FN1, KC_SPC)
+// base
+#define HM_F    LSFT_T(KC_F)
+#define HM_J    RSFT_T(KC_J)
+#define LT_SPC  LT(MAC_FN1, KC_SPC)
+
+// fn right
+#define HM_A RCTL_T(KC_A)
+#define HM_S LALT_T(KC_S)
+#define HM_D RGUI_T(KC_D)
+
+// fn right
+#define HM_LEFT RSFT_T(KC_LEFT)
+#define HM_DOWN RGUI_T(KC_DOWN)
+#define HM_RGHT LALT_T(KC_RGHT)
+#define HM_QUOT RCTL_T(KC_QUOT)
+
 
 /**
  * Combos
@@ -35,19 +50,23 @@ enum layers{
     B,
     C,
     D,
+    E,
+    F,
+    G,
+    H,
     COMBO_LENGTH
 };
 uint16_t COMBO_LEN = COMBO_LENGTH;
-const uint16_t PROGMEM c_df[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM c_sdf[] = {KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM c_jk[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM c_jkl[] = {KC_J, KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM base_df[]  = {KC_D, HM_F, COMBO_END};
+const uint16_t PROGMEM base_sdf[] = {KC_S, KC_D, HM_F, COMBO_END};
+const uint16_t PROGMEM base_jk[]  = {HM_J, KC_K, COMBO_END};
+const uint16_t PROGMEM base_jkl[] = {HM_J, KC_K, KC_L, COMBO_END};
 
 combo_t key_combos[] = {
-    [A] = COMBO(c_sdf, KC_ESC),
-    [B] = COMBO(c_df, KC_TAB),
-    [C] = COMBO(c_jk, KC_BSPC),
-    [D] = COMBO(c_jkl, KC_ENT)
+    [A] = COMBO(base_sdf, KC_ESC),
+    [C] = COMBO(base_df,  KC_TAB),
+    [E] = COMBO(base_jk,  KC_BSPC),
+    [G] = COMBO(base_jkl, KC_ENT),
 };
 
 
@@ -55,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_69_iso(
         KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,            KC_DEL,
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,                      KC_HOME,
-        KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,             KC_PGUP,
+        KC_CAPS,  KC_A,     KC_S,     KC_D,     HM_F,     KC_G,     KC_H,     HM_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_NUHS,  KC_ENT,             KC_PGUP,
         KC_LSFT,  KC_NUBS,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,  KC_UP,    KC_PGDN,
         KC_LCTL,  KC_LOPTN, KC_LCMMD,                               LT_SPC,                                 KC_RCMMD,MO(MAC_FN1),MO(FN2), KC_LEFT,  KC_DOWN,  KC_RGHT),
 
@@ -67,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                                 KC_RALT, MO(WIN_FN1),MO(FN2), KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [MAC_FN1] = LAYOUT_69_iso(
-        KC_GRV,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,            _______,
-        _______,  BT_HST1,  BT_HST2,  BT_HST3,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,                      _______,
-        RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,  _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  NK_TOGG,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
+        RGB_TOG,  BT_HST1,  BT_HST2,  BT_HST3,  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_DEL,             _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MINS,  KC_UP,    KC_EQL,   _______,  _______,  _______,                      _______,
+        _______,  HM_A,     HM_S,     HM_D,     HM_F,     _______,  _______,  HM_LEFT,  HM_DOWN,  HM_RGHT,  HM_QUOT,  _______,  _______,  _______,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_GRV,   KC_LBRC,  KC_RBRC,  KC_NUHS,  _______,            _______,  _______,  _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______),
 
     [WIN_FN1] = LAYOUT_69_iso(
